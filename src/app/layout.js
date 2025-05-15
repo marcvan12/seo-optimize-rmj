@@ -58,7 +58,7 @@ export default async function RootLayout({ children, params }) {
           </noscript>
 
           <AuthProviderServer>
-          
+
             <Providers>
               <CurrencyProvider currency={currency}>
 
@@ -72,7 +72,8 @@ export default async function RootLayout({ children, params }) {
 
           </AuthProviderServer>
           <Script
-            src="https://samplermj.firebaseapp.com/auth/iframe.js"
+            id="firebase-auth-iframe"
+            src="https://real-motor-japan.firebaseapp.com/__/auth/iframe.js"
             strategy="lazyOnload"
           />
         </body>
@@ -125,7 +126,8 @@ export default async function RootLayout({ children, params }) {
           </Providers>
         </AuthProviderServer>
         <Script
-          src="https://samplermj.firebaseapp.com/auth/iframe.js"
+          id="firebase-auth-iframe"
+          src="https://real-motor-japan.firebaseapp.com/__/auth/iframe.js"
           strategy="lazyOnload"
         />
       </body>
