@@ -20,15 +20,24 @@ export default function HeroBanner({ unsoldVehicleCount }) {
         </div>
       </div>
       <div className="relative w-full h-[720px]">
-        <Image
-          src="/samplebanner3.webp"
+        <img
+          src="/samplebanner3.avif?w=720"
+          srcSet="
+    /samplebanner3.avif?w=360   360w,
+    /samplebanner3.avif?w=720   720w,
+    /samplebanner3.avif?w=1080 1080w
+  "
+          sizes="(max-width: 720px) 250px, 100vw"
           alt="Hero banner"
-          fill
-          sizes="(max-width: 720px) 720px, 100vw"
-          quality={75}
-          style={{ objectFit: 'cover' }}
-          priority
-          fetchPriority="high"
+          width="1600"               // ← intrinsic width of your source file
+          height="700"               // ← intrinsic height of your source file
+          style={{
+            width: '100%',           // fill its container
+            height: 720,
+            objectFit: 'cover'
+          }}
+          loading="eager"            // ensures it isn’t deferred
+          fetchPriority="high"       // Chrome’s hint for LCP
         />
       </div>
 
