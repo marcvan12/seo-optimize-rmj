@@ -8,6 +8,7 @@ import Sidebar from "./sidebar"
 import { SideMenu } from "./sideMenu";
 import Link from "next/link"
 import { ShoppingBag } from "lucide-react"
+import ClientAppCheck from "../../../../firebase/ClientAppCheck"
 let lastVisible = null;
 export function subscribeToChatList(userEmail, callback) {
   if (!userEmail) {
@@ -132,6 +133,7 @@ export default function MainOrderPage({ count, userEmail, currency, accountData 
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
+      <ClientAppCheck />
       {/* Sidebar */}
       <Sidebar count={count} accountData={accountData} />
 

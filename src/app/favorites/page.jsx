@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { admin } from "@/lib/firebaseAdmin";
 import FavoritesPageCSR from "./favoriteComponents/favoriteMain";
 import { fetchCurrency } from "../../../services/fetchFirebaseData";
-import ClientAppCheck from "../../../firebase/ClientAppCheck";
+
 import {
     fetchFavoriteStockIds, getDataFromStockId, getAccountData,
     fetchNotificationCounts, checkUserExist
@@ -56,7 +56,7 @@ export default async function FavoritePage() {
     const accountData = await getAccountData(userEmail);
     const count = await fetchNotificationCounts({ userEmail })
     return (
-        <>    <ClientAppCheck />
+        <>
             <FavoritesPageCSR userEmail={userEmail} count={count} dataVehicles={dataVehicles} currency={currency} accountData={accountData} />
         </>
 

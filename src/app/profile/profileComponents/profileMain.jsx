@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { SideMenu } from "@/app/orders/orderComponents/sideMenu";
 import Sidebar from "@/app/orders/orderComponents/sidebar";
+import ClientAppCheck from "../../../../firebase/ClientAppCheck";
 const formSchema = z.object({
     firstName: z.string().min(2, { message: "First name must be at least 2 characters." }),
     lastName: z.string().min(2, { message: "Last name must be at least 2 characters." }),
@@ -113,6 +114,7 @@ export default function ProfilePage({ count, userEmail, accountData, countryList
 
     return (
         <div className="flex flex-col md:flex-row h-screen">
+            <ClientAppCheck />
             <Sidebar count={count} activePage="profile" accountData={accountData} />
 
             <div className="flex-1 flex flex-col overflow-hidden">

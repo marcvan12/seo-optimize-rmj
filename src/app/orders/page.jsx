@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { admin } from "@/lib/firebaseAdmin";
 import { fetchNotificationCounts, getAccountData, checkUserExist } from "../actions/actions";
 import { fetchCurrency, } from "../../../services/fetchFirebaseData";
-import ClientAppCheck from "../../../firebase/ClientAppCheck";
+
 export async function generateMetadata({ params }) {
     return {
         title: 'Orders | REAL MOTOR JAPAN',
@@ -44,7 +44,7 @@ export default async function OrderPage() {
 
     return (
         <>
-            <ClientAppCheck />
+       
             <MainOrderPage count={count} currency={currency} userEmail={userEmail} accountData={accountData} />
         </>
     )
