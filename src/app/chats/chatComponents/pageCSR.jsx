@@ -401,7 +401,7 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
         <SortProvider>
             <ClientAppCheck />
             <div className="flex h-screen bg-gray-50">
-                {/* Transaction List - hidden on mobile when in detail view */}
+   
                 <aside
                     className={`${isMobileView && isDetailView ? "hidden" : "w-full"} lg:max-w-[350px] border-r border-gray-200 overflow-y-auto`}
                 >

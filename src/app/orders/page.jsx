@@ -41,7 +41,6 @@ export default async function OrderPage() {
     const accountData = await getAccountData(userEmail);
     const count = await fetchNotificationCounts({ userEmail });
 
-
     return (
         <>
        

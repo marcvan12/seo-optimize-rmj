@@ -36,36 +36,17 @@ export default function FavoritesPageCSR({ count, dataVehicles, currency, accoun
     return (
         <div className="flex flex-col md:flex-row h-screen">
             <ClientAppCheck />
-            {/* Sidebar */}
+ 
             <Sidebar count={count} activePage="favorites" accountData={accountData} />
 
-            {/* Main content */}
+    
             <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Header - Only visible on desktop */}
                 <header className="bg-[#0000ff] text-white p-4 hidden md:flex md:justify-between md:items-center">
                     <h1 className="text-2xl font-bold text-white">My Favorites</h1>
                 </header>
 
-                {/* Sort and filter controls */}
-                {/* <div className="p-4 border-b flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm">Sort by</span>
-                        <Select defaultValue="date">
-                            <SelectTrigger className="w-[180px] h-8 text-sm border-none shadow-none pl-0">
-                                <SelectValue placeholder="Sort order" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="date">Date Added (Newest First)</SelectItem>
-                                <SelectItem value="date-asc">Date Added (Oldest First)</SelectItem>
-                                <SelectItem value="price-high">Price High to Low</SelectItem>
-                                <SelectItem value="price-low">Price Low to High</SelectItem>
-                                <SelectItem value="year">Year (Newest First)</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div> */}
 
-                {/* Favorites list */}
                 <div className="flex-1 p-4 space-y-4 bg-gray-50 overflow-y-auto">
                     {favoriteList.length > 0 ? (
                         favoriteList.map((favorite) => <FavoriteCard userEmail={userEmail} handleUnfavorite={handleUnfavorite} key={favorite.stockID} favorite={favorite} currency={currency} />)
@@ -97,7 +78,7 @@ export default function FavoritesPageCSR({ count, dataVehicles, currency, accoun
                 </div>
             </div>
 
-            {/* Right side menu */}
+
             <SideMenu isOpen={isRightMenuOpen} setIsOpen={setIsRightMenuOpen} />
         </div>
     )
