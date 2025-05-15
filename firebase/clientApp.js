@@ -14,13 +14,13 @@ import { getAuth } from 'firebase/auth'
 // };
 //FOR DEPLOYMENT//
 const firebaseConfig = {
-    apiKey: 'AIzaSyDwjLbUFMDEyXB7NT63QJonc1NXZH3w07k',
-    authDomain: 'samplermj.firebaseapp.com',
-    projectId: 'samplermj',
-    storageBucket: 'samplermj.appspot.com',
-    messagingSenderId: '879567069316',
-    appId: '1:879567069316:web:1208cd45c8b20ca6aba2d1',
-    measurementId: 'G-L80RXVVXY6',
+    apiKey: "AIzaSyC1oPK69XInlpw-E9BowLGocFq2i8wRjZA",
+    authDomain: "real-motor-japan.firebaseapp.com",
+    projectId: "real-motor-japan",
+    storageBucket: "real-motor-japan.firebasestorage.app",
+    messagingSenderId: "854100669672",
+    appId: "1:854100669672:web:c224be87d85439b5af855d",
+    measurementId: "G-SS7WCX5ZMV"
 };
 
 

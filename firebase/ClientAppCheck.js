@@ -19,7 +19,7 @@ export default function ClientAppCheck() {
       const provider = new CustomProvider({
         getToken: async () => {
           const { appCheckToken, expiresAt } = await getAppCheckToken({
-            appId: '1:879567069316:web:1208cd45c8b20ca6aba2d1'
+            appId: '1:854100669672:web:c224be87d85439b5af855d'
           })
           return {
             token: appCheckToken,
