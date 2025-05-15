@@ -9,6 +9,7 @@ import {
     fetchFavoriteStockIds, getDataFromStockId, getAccountData,
     fetchNotificationCounts, checkUserExist
 } from "../actions/actions";
+import ClientAppCheck from "../../../firebase/ClientAppCheck";
 export async function generateMetadata({ params }) {
     return {
         title: 'Favorites | REAL MOTOR JAPAN',
@@ -57,6 +58,7 @@ export default async function FavoritePage() {
     const count = await fetchNotificationCounts({ userEmail })
     return (
         <>
+            <ClientAppCheck />
             <FavoritesPageCSR userEmail={userEmail} count={count} dataVehicles={dataVehicles} currency={currency} accountData={accountData} />
         </>
 

@@ -9,7 +9,6 @@ import { doc, query, collection, where, orderBy, limit, onSnapshot, startAfter, 
 import { firestore } from "../../../../firebase/clientApp"
 import { loadMoreMessages, getBookingData } from "@/app/actions/actions"
 import { SortProvider } from "@/app/stock/stockComponents/sortContext"
-import ClientAppCheck from "../../../../firebase/ClientAppCheck"
 
 let lastVisible = null;
 export function subscribeToChatList(
@@ -399,7 +398,7 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
 
     return (
         <SortProvider>
-            <ClientAppCheck />
+      
             <div className="flex h-screen bg-gray-50">
    
                 <aside

@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { admin } from "@/lib/firebaseAdmin";
 import { fetchNotificationCounts, getAccountData, checkUserExist } from "../actions/actions";
 import { fetchCurrency, } from "../../../services/fetchFirebaseData";
+import ClientAppCheck from "../../../firebase/ClientAppCheck";
 
 export async function generateMetadata({ params }) {
     return {
@@ -42,8 +43,8 @@ export default async function OrderPage() {
     const count = await fetchNotificationCounts({ userEmail });
 
     return (
-        <>
-       
+        <>  
+            <ClientAppCheck/>
             <MainOrderPage count={count} currency={currency} userEmail={userEmail} accountData={accountData} />
         </>
     )
