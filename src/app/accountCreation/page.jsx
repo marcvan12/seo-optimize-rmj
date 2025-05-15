@@ -3,6 +3,7 @@ import { getCountries, getAccountData, getOldId, getCurrentFtpId, fetchServerTim
 import { admin } from "@/lib/firebaseAdmin";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import ClientAppCheck from "../../../firebase/ClientAppCheck";
 export default async function AccountCreation() {
     let claims = null
 
@@ -18,7 +19,7 @@ export default async function AccountCreation() {
     } catch (e) {
         console.log('Session invalid:', e)
         // optionally clear the cookie so you don’t keep retrying
-   
+
     }
 
     const userEmail = claims?.email;
@@ -35,6 +36,7 @@ export default async function AccountCreation() {
 
     return (
         <div className="flex min-h-screen justify-center bg-[#fafafa] relative overflow-hidden">
+            <ClientAppCheck />
             <div className="absolute inset-0 w-full h-full z-0">
                 <svg height="0" width="0">
                     <defs>

@@ -5,6 +5,7 @@ import { getAccountData, getCountries, checkUserExist, fetchNotificationCounts }
 import { admin } from "@/lib/firebaseAdmin";
 import ProfilePage from "./profileComponents/profileMain";
 import { Toaster } from "sonner";
+import ClientAppCheck from "../../../firebase/ClientAppCheck";
 
 export async function generateMetadata({ params }) {
     return {
@@ -46,7 +47,7 @@ export default async function OrderPage() {
     const count = await fetchNotificationCounts({ userEmail });
     return (
         <>
-
+            <ClientAppCheck />
             <Toaster />
             <ProfilePage count={count} userEmail={userEmail} accountData={accountData} countryList={countryList} /></>
 

@@ -7,6 +7,7 @@ import { useAuth } from '@/app/providers/AuthProvider';
 import { makeFavorite, isFavorited } from '@/app/actions/actions';
 import { admin } from '@/lib/firebaseAdmin';
 import { cookies } from "next/headers";
+import ClientAppCheck from '../../../../firebase/ClientAppCheck';
 export async function generateMetadata({ params }) {
     const { id } = await params;
 
@@ -97,6 +98,7 @@ export default async function ProductPage({ params, searchParams }) {
     const userEmail = claims?.email;
     return (
         <SortProvider>
+            <ClientAppCheck />
             <div className="z-10 mt-20">
                 <CarProductPageCSR
 
