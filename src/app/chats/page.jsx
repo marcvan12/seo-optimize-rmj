@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { fetchCurrency } from "../../../services/fetchFirebaseData";
 import { getCountries, checkUserExist, getAccountData } from "../actions/actions";
-import ClientAppCheck from "../../../firebase/ClientAppCheck";
+
 export async function generateMetadata() {
   return {
     title: 'Transactions | REAL MOTOR JAPAN',
@@ -48,7 +48,7 @@ export default async function ChatPage() {
   console.log(accountData)
   return (
     <>
-        <ClientAppCheck/>
+
       <ChatPageCSR accountData={accountData} userEmail={userEmail} currency={currency} countryList={countryList} />
     </>
   );

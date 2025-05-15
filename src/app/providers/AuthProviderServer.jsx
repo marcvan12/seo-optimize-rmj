@@ -2,7 +2,6 @@
 import { cookies } from 'next/headers'
 import { admin } from '@/lib/firebaseAdmin'
 import AuthProvider from './AuthProvider'
-import ClientAppCheck from '../../../firebase/ClientAppCheck'
 
 export default async function AuthProviderServer({ children }) {
   // 1️⃣ Grab the long-lived session cookie (not the ID token)
