@@ -74,7 +74,7 @@ export default async function RootLayout({ children, params }) {
           <Script
             id="firebase-auth-iframe"
             src="https://real-motor-japan.firebaseapp.com/__/auth/iframe.js"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
         </body>
 
@@ -128,7 +128,7 @@ export default async function RootLayout({ children, params }) {
         <Script
           id="firebase-auth-iframe"
           src="https://real-motor-japan.firebaseapp.com/__/auth/iframe.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
       </body>
 
