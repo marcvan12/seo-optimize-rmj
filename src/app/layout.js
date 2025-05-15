@@ -12,7 +12,7 @@ import { cookies } from "next/headers";
 import Script from "next/script";
 import Gtag from "./components/G-tag";
 import { fetchNotificationCounts } from "./actions/actions";
-import Head from "next/head";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -37,22 +37,14 @@ export default async function RootLayout({ children, params }) {
     // no session → render guest UI
     return (
       <html lang="en">
-        <Head>
-          <link
-            rel="preload"
-            as="image"
-            href="/samplebanner3.avif"
-            imagesrcset="
-              /samplebanner3.avif?w=360   360w,
-              /samplebanner3.avif?w=720   720w,
-              /samplebanner3.avif?w=1080 1080w
-            "
-            imagesizes="(max-width: 720px) 250px, 100vw"
-            fetchPriority="high"
-          />
-        </Head>
-        <Gtag />
 
+        <Gtag />
+        <link
+          rel="preload"
+          as="image"
+          href="/samplebanner3.webp"
+          media="(max-width: 640px)"
+        />
         <body>
 
           <noscript>
@@ -103,22 +95,13 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang="en">
-      <Head>
-        <link
-          rel="preload"
-          as="image"
-          href="/samplebanner3.avif"
-          imagesrcset="
-              /samplebanner3.avif?w=360   360w,
-              /samplebanner3.avif?w=720   720w,
-              /samplebanner3.avif?w=1080 1080w
-            "
-          imagesizes="(max-width: 720px) 250px, 100vw"
-          fetchPriority="high"
-        />
-      </Head>
       <Gtag />
- 
+      <link
+        rel="preload"
+        as="image"
+        href="/samplebanner3.webp"
+        media="(max-width: 640px)"
+      />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
 
         <noscript>
