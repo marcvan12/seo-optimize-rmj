@@ -28,6 +28,7 @@ export default function HeroBanner({ unsoldVehicleCount }) {
           quality={75}
           style={{ objectFit: 'cover' }}
           priority
+          fetchPriority="high"
         />
       </div>
 
