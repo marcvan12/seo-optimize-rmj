@@ -27,7 +27,6 @@ export default function ClientAppCheck() {
           }
         }
       })
-
       // 3) initialize App Check and keep the returned instance
       appCheckInstance = initializeAppCheck(firebaseApp, {
         provider,
