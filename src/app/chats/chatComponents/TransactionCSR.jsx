@@ -161,7 +161,7 @@ export default function TransactionCSR({ vehicleStatus, accountData, isMobileVie
     useEffect(() => {
         endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [chatMessages]);
-    const { stockStatus, reservedTo } = vehicleStatus[contact.carData.stockID] || {};
+    const { stockStatus, reservedTo } = vehicleStatus[contact?.carData?.stockID] || {};
     const isReservedOrSold = (stockStatus === "Reserved" || stockStatus === "Sold") && reservedTo !== userEmail
     return (
         <div className="flex flex-col h-full">
@@ -170,7 +170,10 @@ export default function TransactionCSR({ vehicleStatus, accountData, isMobileVie
 
 
             <div className="relative w-full">
+               
 
+
+              
                 <div className="relative z-[5]">
                     {/* this is your dynamic‐height content */}
                     <CarDetails
@@ -187,7 +190,7 @@ export default function TransactionCSR({ vehicleStatus, accountData, isMobileVie
                     />
 
                     {/* your existing action buttons (still in flow) */}
-                    {contact.stepIndicator.value >= 2 && (
+                    {contact?.stepIndicator?.value >= 2 && (
                         <ActionButtonsChat
                             accountData={accountData}
                             bookingData={bookingData}
@@ -201,7 +204,7 @@ export default function TransactionCSR({ vehicleStatus, accountData, isMobileVie
                     )}
 
                     {/* announcement bar pulled out of flow but placed at parent’s bottom */}
-                    {(contact.stepIndicator.value === 2 || contact.stepIndicator.value === 3 || isReservedOrSold) && (
+                    {(contact?.stepIndicator?.value === 2 || contact?.stepIndicator?.value === 3 || isReservedOrSold) && (
                         <div className="absolute top-full left-0 w-full z-[1] px-1 mt-1">
                             <AnnouncementBar
                                 invoiceData={invoiceData}

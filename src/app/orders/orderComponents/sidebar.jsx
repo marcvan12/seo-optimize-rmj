@@ -1,12 +1,10 @@
-"use client"
+'use client'
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useAuth } from "@/app/providers/AuthProvider"
 import {
     User,
     MessageSquare,
-    RotateCcw,
-    Bookmark,
     ChevronDown,
     LogOut,
     Edit,
@@ -71,9 +69,13 @@ export default function Sidebar({ count, activePage = "orders", pageTitle, accou
     }
 
     // Mobile header
-    if (isMobile) {
-        return (
-            <div className="w-full bg-[#0000ff] text-white p-4 flex items-center justify-between">
+
+
+    // Desktop sidebar
+    return (
+        <>
+            {/* mobile header */}
+            <div className="min-[768px]:hidden w-full bg-[#0000ff] text-white p-4 flex items-center justify-between">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="text-white p-0 hover:bg-blue-800">
@@ -111,129 +113,127 @@ export default function Sidebar({ count, activePage = "orders", pageTitle, accou
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-        )
-    }
-
-    // Desktop sidebar
-    return (
-        <div className="w-[325px] flex flex-col h-full border-r">
-            {/* Profile Header */}
-            <div className="bg-[#0000ff] text-white p-6 flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-2">
-                    <User className="h-8 w-8 text-blue-700" />
+            <div className="max-[768px]:hidden w-[325px] flex flex-col h-full border-r">
+                {/* Profile Header */}
+                <div className="bg-[#0000ff] text-white p-6 flex flex-col items-center text-center">
+                    <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-2">
+                        <User className="h-8 w-8 text-blue-700" />
+                    </div>
+                    <div className="text-lg font-medium">
+                        {accountData.textFirst} {accountData.textLast}
+                    </div>
+                    <div className="text-sm">Customer</div>
                 </div>
-                <div className="text-lg font-medium">{accountData.textFirst} {accountData.textLast}</div>
-                <div className="text-sm">Customer</div>
-            </div>
 
-            {/* Navigation */}
-            <nav className="flex-1">
-                <ul className="py-2">
-                    {/* Profile with collapsible edit */}
-                    <li>
-                        <button
-                            onClick={toggleProfile}
-                            className={`w-full flex items-center justify-between px-6 py-3 ${activePage === "profile"
-                                ? "bg-blue-50 text-blue-700"
-                                : "hover:bg-gray-100 text-gray-700"
-                                }`}
-                        >
-                            <div className="flex items-center">
-                                <User
-                                    className={`mr-3 h-5 w-5 ${activePage === "profile" ? "text-blue-700" : "text-gray-600"
-                                        }`}
-                                />
-                                <span>Profile</span>
-                            </div>
-                            <ChevronDown
-                                className={`h-5 w-5 transform transition-transform duration-200 ${profileOpen ? "rotate-180" : ""
-                                    } ${activePage === "profile" ? "text-blue-700" : "text-gray-600"
+                {/* Navigation */}
+                <nav className="flex-1">
+                    <ul className="py-2">
+                        {/* Profile with collapsible edit */}
+                        <li>
+                            <button
+                                onClick={toggleProfile}
+                                className={`w-full flex items-center justify-between px-6 py-3 ${activePage === "profile"
+                                    ? "bg-blue-50 text-blue-700"
+                                    : "hover:bg-gray-100 text-gray-700"
                                     }`}
-                            />
-                        </button>
-                        {profileOpen && (
-                            <ul>
-                                <li>
-                                    <Link
-                                        href="/profile"
-                                        className="flex items-center pl-12 py-2 hover:bg-gray-100 text-gray-700"
-                                    >
-                                        <Edit className="mr-2 h-4 w-4" />
-                                        <span>Edit Details</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
-                    </li>
-
-                    {/* Transactions */}
-                    <li>
-                        <Link
-                            href="/chats"
-                            className={`flex items-center justify-between px-6 py-3 ${activePage === "transactions"
-                                ? "bg-blue-50 text-blue-700"
-                                : "hover:bg-gray-100 text-gray-700"
-                                }`}
-                        >
-                            <div className="flex items-center">
-                                <MessageSquare
-                                    className={`mr-3 h-5 w-5 ${activePage === "transactions" ? "text-blue-700" : "text-gray-600"
+                            >
+                                <div className="flex items-center">
+                                    <User
+                                        className={`mr-3 h-5 w-5 ${activePage === "profile" ? "text-blue-700" : "text-gray-600"
+                                            }`}
+                                    />
+                                    <span>Profile</span>
+                                </div>
+                                <ChevronDown
+                                    className={`h-5 w-5 transform transition-transform duration-200 ${profileOpen ? "rotate-180" : ""
+                                        } ${activePage === "profile" ? "text-blue-700" : "text-gray-600"
                                         }`}
                                 />
-                                <span>Transactions</span>
-                            </div>
-                            {count >= 0 && (
-                                <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                                    {count}
-                                </span>
+                            </button>
+                            {profileOpen && (
+                                <ul>
+                                    <li>
+                                        <Link
+                                            href="/profile"
+                                            className="flex items-center pl-12 py-2 hover:bg-gray-100 text-gray-700"
+                                        >
+                                            <Edit className="mr-2 h-4 w-4" />
+                                            <span>Edit Details</span>
+                                        </Link>
+                                    </li>
+                                </ul>
                             )}
+                        </li>
 
-                        </Link>
-                    </li>
-
-                    {/* Orders */}
-                    <li>
-                        <Link
-                            href="/orders"
-                            className={`flex items-center px-6 py-3 ${activePage === "orders"
-                                ? "bg-blue-50 text-blue-700"
-                                : "hover:bg-gray-100 text-gray-700"
-                                }`}
-                        >
-                            <ShoppingBag
-                                className={`mr-3 h-5 w-5 ${activePage === "orders" ? "text-blue-700" : "text-gray-600"
+                        {/* Transactions */}
+                        <li>
+                            <Link
+                                href="/chats"
+                                className={`flex items-center justify-between px-6 py-3 ${activePage === "transactions"
+                                    ? "bg-blue-50 text-blue-700"
+                                    : "hover:bg-gray-100 text-gray-700"
                                     }`}
-                            />
-                            <span>My Orders</span>
-                        </Link>
-                    </li>
+                            >
+                                <div className="flex items-center">
+                                    <MessageSquare
+                                        className={`mr-3 h-5 w-5 ${activePage === "transactions" ? "text-blue-700" : "text-gray-600"
+                                            }`}
+                                    />
+                                    <span>Transactions</span>
+                                </div>
+                                {count >= 0 && (
+                                    <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                        {count}
+                                    </span>
+                                )}
 
-                    {/* Favorites */}
-                    <li>
-                        <Link
-                            href="/favorites"
-                            className={`flex items-center px-6 py-3 ${activePage === "favorites"
-                                ? "bg-blue-50 text-blue-700"
-                                : "hover:bg-gray-100 text-gray-700"
-                                }`}
-                        >
-                            <Heart
-                                className={`mr-3 h-5 w-5 ${activePage === "favorites" ? "text-blue-700" : "text-gray-600"
+                            </Link>
+                        </li>
+
+                        {/* Orders */}
+                        <li>
+                            <Link
+                                href="/orders"
+                                className={`flex items-center px-6 py-3 ${activePage === "orders"
+                                    ? "bg-blue-50 text-blue-700"
+                                    : "hover:bg-gray-100 text-gray-700"
                                     }`}
-                            />
-                            <span>Favorites</span>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
+                            >
+                                <ShoppingBag
+                                    className={`mr-3 h-5 w-5 ${activePage === "orders" ? "text-blue-700" : "text-gray-600"
+                                        }`}
+                                />
+                                <span>My Orders</span>
+                            </Link>
+                        </li>
 
-            {/* Logout */}
-            <div className="p-4">
-                <Button  onClick={logOut} className="w-full bg-[#0000ff] hover:bg-blue-800 h-10">
-                    <LogOut className="mr-2 h-5 w-5" />
-                    Log Out
-                </Button>
+                        {/* Favorites */}
+                        <li>
+                            <Link
+                                href="/favorites"
+                                className={`flex items-center px-6 py-3 ${activePage === "favorites"
+                                    ? "bg-blue-50 text-blue-700"
+                                    : "hover:bg-gray-100 text-gray-700"
+                                    }`}
+                            >
+                                <Heart
+                                    className={`mr-3 h-5 w-5 ${activePage === "favorites" ? "text-blue-700" : "text-gray-600"
+                                        }`}
+                                />
+                                <span>Favorites</span>
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+
+                {/* Logout */}
+                <div className="p-4">
+                    <Button onClick={logOut} className="w-full bg-[#0000ff] hover:bg-blue-800 h-10">
+                        <LogOut className="mr-2 h-5 w-5" />
+                        Log Out
+                    </Button>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

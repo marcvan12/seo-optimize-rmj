@@ -165,10 +165,10 @@ export async function fetchVehicleProductsByPage({
   if (carBodyType) q = q.where("bodyType", "==", carBodyType);
   if (minPrice) q = q.where('fobPriceNumber', ">=", Number(minPrice) / currency);
   if (maxPrice) q = q.where('fobPriceNumber', '<=', Number(maxPrice) / currency);
-  if (minYear) q = q.where('regYearNumber', '>=', minYear);
-  if (maxYear) q = q.where('regYearNumber', '<=', maxYear);
-  if (minMileage) q = q.where('mileageNumber', '>=', minMileage);
-  if (maxMileage) q = q.where('mileageNumber', '<=', maxMileage);
+  if (minYear) q = q.where('regYearNumber', '>=', Number(minYear));
+  if (maxYear) q = q.where('regYearNumber', '<=', Number(maxYear));
+  if (minMileage) q = q.where('mileageNumber', '>=', Number(minMileage));
+  if (maxMileage) q = q.where('mileageNumber', '<=', Number(maxMileage));
   // Step 2: Count total
   const countSnap = await q.count().get();
 

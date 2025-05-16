@@ -12,6 +12,7 @@ import { cookies } from "next/headers";
 import Script from "next/script";
 import Gtag from "./components/G-tag";
 import { fetchNotificationCounts } from "./actions/actions";
+import ClientAppCheck from "../../firebase/ClientAppCheck";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -45,7 +46,7 @@ export default async function RootLayout({ children, params }) {
           media="(max-width: 640px)"
         />
         <body>
-     
+   
           <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-NJLD22H"
@@ -102,7 +103,7 @@ export default async function RootLayout({ children, params }) {
         media="(max-width: 640px)"
       />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-
+        <ClientAppCheck />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-NJLD22H"

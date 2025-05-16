@@ -2,6 +2,7 @@ import Image from "next/image"
 import TimelineStatus from "./timelineStatus"
 
 import { ChevronLeft } from "lucide-react"
+import Link from "next/link";
 export default function CarDetails({ handleBackToList, isMobileView, isDetailView, countryDetails, contact, invoiceData, dueDate }) {
     const selectedCurrencyCode = contact?.selectedCurrencyExchange; // e.g. "JPY"
 
@@ -22,38 +23,39 @@ export default function CarDetails({ handleBackToList, isMobileView, isDetailVie
 
     // 4) do your price math with currency.value
     const basePrice =
-        parseFloat(contact.carData.fobPrice)
-        * parseFloat(contact.currency.jpyToUsd);
+        parseFloat(contact?.carData?.fobPrice)
+        * parseFloat(contact?.currency.jpyToUsd);
 
     const baseFinalPrice = invoiceData?.paymentDetails.totalAmount ? parseFloat(invoiceData?.paymentDetails.totalAmount) :
         basePrice
-        + parseFloat(contact.carData.dimensionCubicMeters)
-        * parseFloat(contact.freightPrice);
+        + parseFloat(contact?.carData?.dimensionCubicMeters)
+        * parseFloat(contact?.freightPrice);
 
-    const inspectionSurcharge = contact.inspection ? 300 * currency.value : 0;
-    const insuranceSurcharge = contact.insurance ? 50 * currency.value : 0
+    const inspectionSurcharge = contact?.inspection ? 300 * currency.value : 0;
+    const insuranceSurcharge = contact?.insurance ? 50 * currency.value : 0
     const finalPrice = (baseFinalPrice * currency.value + inspectionSurcharge + insuranceSurcharge);
     return (
 
         <div className="w-full overflow-x-auto mx-auto rounded-sm p-4 font-sans bg-white">
             <div className="flex gap-4 lg:max-w-[730px] w-[790px]">
 
-                {isMobileView && isDetailView && (
-                    <div className="flex justify-center items-center">
-                        <button
-                            onClick={handleBackToList}
+                    <div className="min-[768px]:hidden flex justify-center items-center">
+                        <Link
+                            href={'/chats'}
                             className="p-2 rounded-full hover:bg-gray-100 focus:outline-none"
                             aria-label="Back to list"
                         >
+
                             <ChevronLeft className="w-10 h-10 text-gray-700 cursor-pointer" />
-                        </button>
+
+                        </Link>
                     </div>
-                )}
+             
 
                 <div className="flex flex-col gap-2">
                     <div className="relative w-20 h-20 overflow-hidden rounded-[50%] border border-gray-200">
                         <Image
-                            src={contact?.carData.images[0]}
+                            src={contact?.carData?.images[0] || '/placeholder.webp' }
                             alt="Toyota Townace Van"
                             layout="fill"
                             className="object-fit"
@@ -65,10 +67,10 @@ export default function CarDetails({ handleBackToList, isMobileView, isDetailVie
                 <div className="flex-1">
                     <h2 className="text-lg font-bold">
                         <a href="#" className="text-blue-600 hover:underline">
-                            {contact?.carData.carName}
+                            {contact?.carData?.carName}
                         </a>
                     </h2>
-                    <div className="text-xs text-gray-500">{contact?.carData.referenceNumber}</div>
+                    <div className="text-xs text-gray-500">{contact?.carData?.referenceNumber}</div>
 
 
                     <div className="mt-4 flex items-center justify-between relative">
@@ -88,11 +90,11 @@ export default function CarDetails({ handleBackToList, isMobileView, isDetailVie
                 </div>
 
                 <div className="grid grid-cols-1 gap-x-1 text-sm hide-after-1077">
-                    <div className="text-gray-600">{contact?.carData.chassisNumber}</div>
-                    <div className="text-gray-600">{contact?.carData.modelCode}</div>
-                    <div className="text-gray-600">{contact?.carData.mileage} km</div>
-                    <div className="text-gray-600">{contact?.carData.fuel}</div>
-                    <div className="text-gray-600">{contact?.carData.transmission}</div>
+                    <div className="text-gray-600">{contact?.carData?.chassisNumber}</div>
+                    <div className="text-gray-600">{contact?.carData?.modelCode}</div>
+                    <div className="text-gray-600">{contact?.carData?.mileage} km</div>
+                    <div className="text-gray-600">{contact?.carData?.fuel}</div>
+                    <div className="text-gray-600">{contact?.carData?.transmission}</div>
                 </div>
 
 
@@ -101,7 +103,7 @@ export default function CarDetails({ handleBackToList, isMobileView, isDetailVie
                     <div className="font-bold">
                         Total Price:{' '}
                         <span className="text-green-600">
-                            {contact.freightPrice === 0 && !invoiceData?.paymentDetails.totalAmount
+                            {contact?.freightPrice === 0 && !invoiceData?.paymentDetails.totalAmount
                                 ? 'ASK'
                                 : `${currency.symbol} ${Math.floor(finalPrice).toLocaleString()}`
                             }
@@ -111,11 +113,11 @@ export default function CarDetails({ handleBackToList, isMobileView, isDetailVie
                     <div className="text-sm">{contact?.country} / {contact?.port}</div>
                     <div className="text-sm font-semibold text-green-600">
                         {[
-                            (invoiceData?.paymentDetails?.inspectionIsChecked ?? contact.inspection) ? 'INSPECTION' : null,
+                            (invoiceData?.paymentDetails?.inspectionIsChecked ?? contact?.inspection) ? 'INSPECTION' : null,
                             (invoiceData?.paymentDetails?.incoterms
                                 ? (invoiceData?.paymentDetails?.incoterms === 'C&F' ? 'C&F' : 'CIF')
-                                : (contact.insurance ? 'CIF' : 'C&F')),
-                            (invoiceData?.paymentDetails?.warrantyIsChecked ?? contact.warranty) ? 'WARRANTY' : null
+                                : (contact?.insurance ? 'CIF' : 'C&F')),
+                            (invoiceData?.paymentDetails?.warrantyIsChecked ?? contact?.warranty) ? 'WARRANTY' : null
                         ].filter(Boolean).join(' + ')}
 
 

@@ -163,9 +163,9 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
             pdf.addImage(imageData, 'JPEG', 0, 0, pdfWidthFit, pdfHeightFit, undefined, 'FAST', 0, options);
 
             // Filename logic
-            selectedChatData.stepIndicator.value < 3 ?
-                pdf.save(`Proforma Invoice (${invoiceData?.carData.carName} [${invoiceData?.carData.referenceNumber}]) (A4 Paper Size).pdf`) :
-                pdf.save(`Invoice No. ${selectedChatData.invoiceNumber} (A4 Paper Size).pdf`);
+            selectedChatData?.stepIndicator.value < 3 ?
+                pdf.save(`Proforma Invoice (${invoiceData?.carData?.carName} [${invoiceData?.carData?.referenceNumber}]) (A4 Paper Size).pdf`) :
+                pdf.save(`Invoice No. ${selectedChatData?.invoiceNumber} (A4 Paper Size).pdf`);
         } else {
             console.error("No element to capture");
         }
@@ -276,17 +276,17 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
     };
 
 
-    const freightCalculation = ((selectedChatData.m3 ? selectedChatData.m3 :
-        (selectedChatData.carData && selectedChatData.carData.dimensionCubicMeters ?
-            selectedChatData.carData.dimensionCubicMeters : 0)) *
-        Number(selectedChatData.freightPrice));
+    const freightCalculation = ((selectedChatData?.m3 ? selectedChatData?.m3 :
+        (selectedChatData?.carData && selectedChatData?.carData?.dimensionCubicMeters ?
+            selectedChatData?.carData?.dimensionCubicMeters : 0)) *
+        Number(selectedChatData?.freightPrice));
 
-    const totalPriceCalculation = (selectedChatData.fobPrice ? selectedChatData.fobPrice :
-        (selectedChatData.carData && selectedChatData.carData.fobPrice ?
-            selectedChatData.carData.fobPrice : 0) *
-        (selectedChatData.jpyToUsd ? selectedChatData.jpyToUsd :
-            (selectedChatData.currency && selectedChatData.currency.jpyToUsd ?
-                selectedChatData.currency.jpyToUsd : 0))) + freightCalculation;
+    const totalPriceCalculation = (selectedChatData?.fobPrice ? selectedChatData?.fobPrice :
+        (selectedChatData?.carData && selectedChatData?.carData?.fobPrice ?
+            selectedChatData?.carData?.fobPrice : 0) *
+        (selectedChatData?.jpyToUsd ? selectedChatData?.jpyToUsd :
+            (selectedChatData?.currency && selectedChatData?.currency.jpyToUsd ?
+                selectedChatData?.currency.jpyToUsd : 0))) + freightCalculation;
 
     const convertedCurrency = (baseValue) => {
         // Ensure baseValue is a valid number
@@ -306,23 +306,23 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
             return `$${Math.round(baseValueNumber).toLocaleString('en-US', numberFormatOptions)}`;
         }
         if (invoiceData.selectedCurrencyExchange == 'JPY') {
-            const jpyValue = baseValueNumber * Number(selectedChatData.currency.usdToJpy);
+            const jpyValue = baseValueNumber * Number(selectedChatData?.currency.usdToJpy);
             return `¥${Math.round(jpyValue).toLocaleString('en-US', numberFormatOptions)}`;
         }
         if (invoiceData.selectedCurrencyExchange == 'EUR') {
-            const euroValue = baseValueNumber * Number(selectedChatData.currency.usdToEur);
+            const euroValue = baseValueNumber * Number(selectedChatData?.currency.usdToEur);
             return `€${Math.round(euroValue).toLocaleString('en-US', numberFormatOptions)}`;
         }
         if (invoiceData.selectedCurrencyExchange == 'AUD') {
-            const audValue = baseValueNumber * Number(selectedChatData.currency.usdToAud);
+            const audValue = baseValueNumber * Number(selectedChatData?.currency.usdToAud);
             return `A$${Math.round(audValue).toLocaleString('en-US', numberFormatOptions)}`;
         }
         if (invoiceData.selectedCurrencyExchange == 'GBP') {
-            const gbpValue = baseValueNumber * Number(selectedChatData.currency.usdToGbp);
+            const gbpValue = baseValueNumber * Number(selectedChatData?.currency.usdToGbp);
             return `£${Math.round(gbpValue).toLocaleString('en-US', numberFormatOptions)}`;
         }
         if (invoiceData.selectedCurrencyExchange == 'CAD') {
-            const cadValue = baseValueNumber * Number(selectedChatData.currency.usdToCad);
+            const cadValue = baseValueNumber * Number(selectedChatData?.currency.usdToCad);
             return `C$${Math.round(cadValue).toLocaleString('en-US', numberFormatOptions)}`;
         }
 
@@ -475,7 +475,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
                     <View style={{ position: 'absolute', alignSelf: 'center', top: 80 * smallHeightScaleFactor }}>
                         {/* Title */}
-                        {selectedChatData.stepIndicator.value < 3 ?
+                        {selectedChatData?.stepIndicator.value < 3 ?
                             <Text style={{ fontWeight: 700, fontSize: 25 * smallWidthScaleFactor }}>{`PROFORMA INVOICE`}</Text> :
                             <Text style={{ fontWeight: 700, fontSize: 25 * smallWidthScaleFactor }}>{`INVOICE`}</Text>
                         }
@@ -483,7 +483,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
                     <View style={{ position: 'absolute', right: 38 * smallWidthScaleFactor, top: 38 * smallHeightScaleFactor }}>
                         {/* QR CODE */}
-                        {selectedChatData.stepIndicator.value < 3 ?
+                        {selectedChatData?.stepIndicator.value < 3 ?
                             null :
                             <QRCodeSVG
                                 value={invoiceData?.cryptoNumber}
@@ -496,13 +496,13 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
                     <View style={{ position: 'absolute', right: 121 * smallWidthScaleFactor, top: 34 * smallHeightScaleFactor }}>
                         {/* Invoice Number */}
-                        {selectedChatData.stepIndicator.value < 3 ?
+                        {selectedChatData?.stepIndicator.value < 3 ?
                             null :
-                            <Text style={{ fontWeight: 750, fontSize: 14 * smallWidthScaleFactor }}>{`Invoice No. RMJ-${selectedChatData.invoiceNumber}`}</Text>
+                            <Text style={{ fontWeight: 750, fontSize: 14 * smallWidthScaleFactor }}>{`Invoice No. RMJ-${selectedChatData?.invoiceNumber}`}</Text>
                         }
                     </View>
 
-                    {selectedChatData.stepIndicator.value < 3 ?
+                    {selectedChatData?.stepIndicator.value < 3 ?
                         <View style={{ position: 'absolute', right: 38 * smallWidthScaleFactor, top: 34 * smallHeightScaleFactor, }}>
                             {/* Issuing Date */}
                             <View style={{ flexDirection: 'row', alignSelf: 'flex-end', }}>
@@ -617,7 +617,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
 
                     </View>
-                    {selectedChatData.stepIndicator.value < 3 ?
+                    {selectedChatData?.stepIndicator.value < 3 ?
 
                         <View style={{ position: 'absolute', right: 38 * smallWidthScaleFactor, top: 130 * smallHeightScaleFactor, borderWidth: 3 * smallWidthScaleFactor, width: 430 * smallWidthScaleFactor, borderColor: '#FF5C00', height: 194 * smallHeightScaleFactor, }}>
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', }}>
@@ -1048,7 +1048,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                 paddingVertical: 2 * smallHeightScaleFactor,
 
                             }}>
-                                {invoiceData?.carData && invoiceData?.carData.carName ? (
+                                {invoiceData?.carData && invoiceData?.carData?.carName ? (
                                     <Text style={{
                                         fontWeight: 400,
                                         fontSize: 12 * smallWidthScaleFactor,
@@ -1065,7 +1065,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${invoiceData?.carData.carName}\n`}
+                                            {`${invoiceData?.carData?.carName}\n`}
                                         </Text>
                                         <Text style={{
                                             fontWeight: 400,
@@ -1074,7 +1074,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${invoiceData?.carData.chassisNumber}\n`}
+                                            {`${invoiceData?.carData?.chassisNumber}\n`}
                                         </Text>
                                         <Text style={{
                                             fontWeight: 400,
@@ -1083,7 +1083,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${invoiceData?.carData.exteriorColor}\n`}
+                                            {`${invoiceData?.carData?.exteriorColor}\n`}
                                         </Text>
                                         <Text style={{
                                             fontWeight: 400,
@@ -1092,7 +1092,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${Number(invoiceData?.carData.engineDisplacement).toLocaleString('en-US')} cc\n`}
+                                            {`${Number(invoiceData?.carData?.engineDisplacement).toLocaleString('en-US')} cc\n`}
                                         </Text>
                                         <Text style={{
                                             fontWeight: 400,
@@ -1101,7 +1101,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${Number(invoiceData?.carData.mileage).toLocaleString('en-US')} km\n`}
+                                            {`${Number(invoiceData?.carData?.mileage).toLocaleString('en-US')} km\n`}
                                         </Text>
                                         <Text style={{
                                             fontWeight: 400,
@@ -1110,7 +1110,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${invoiceData?.carData.fuel}\n`}
+                                            {`${invoiceData?.carData?.fuel}\n`}
                                         </Text>
                                         <Text style={{
                                             fontWeight: 400,
@@ -1119,7 +1119,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             marginBottom: 3 * smallHeightScaleFactor,
                                             alignSelf: 'center',
                                         }}>
-                                            {`${invoiceData?.carData.transmission}\n`}
+                                            {`${invoiceData?.carData?.transmission}\n`}
                                         </Text>
                                     </Text>
 
@@ -1159,7 +1159,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                 flexDirection: 'row',
                                 justifyContent: 'center',
                             }}>
-                                {invoiceData?.carData && invoiceData?.carData.carName ? (
+                                {invoiceData?.carData && invoiceData?.carData?.carName ? (
                                     <Text style={{
                                         fontWeight: 400,
                                         fontSize: 12 * smallWidthScaleFactor,
@@ -1324,7 +1324,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                         </Text>
                     </View>
 
-                    {selectedChatData.stepIndicator.value < 3 ? null :
+                    {selectedChatData?.stepIndicator.value < 3 ? null :
                         <View style={{ position: 'absolute', right: 39 * smallWidthScaleFactor, top: 835 * smallHeightScaleFactor, width: 300 * smallWidthScaleFactor, }}>
                             <View style={{
                                 width: 300 * smallWidthScaleFactor,
@@ -1437,9 +1437,9 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                         <FileText className="h-3 w-3 mr-1" />
                         {selectedChatData?.invoiceNumber && selectedChatData?.stepIndicator.value > 2 ? `Invoice No. ${selectedChatData?.invoiceNumber}` : 'Preview Invoice'}
 
-                        {/* {selectedChatData.invoiceNumber && selectedChatData.stepIndicator.value > 2 ?
+                        {/* {selectedChatData?.invoiceNumber && selectedChatData?.stepIndicator.value > 2 ?
                             <Text style={{ fontWeight: 700, color: context === 'chat' ? 'black' : 'white', }}>
-                                <AntDesign name='filetext1' size={16} color={context === 'chat' ? 'black' : 'white'} /> {context === 'chat' ? messageText : `Invoice No. ${selectedChatData.invoiceNumber}`}
+                                <AntDesign name='filetext1' size={16} color={context === 'chat' ? 'black' : 'white'} /> {context === 'chat' ? messageText : `Invoice No. ${selectedChatData?.invoiceNumber}`}
                             </Text>
                             :
                             <Text style={{ fontWeight: 700, color: context === 'chat' ? 'black' : 'white', }}>
@@ -1549,7 +1549,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
                                         <View style={{ position: 'absolute', alignSelf: 'center', top: 80 * heightScaleFactor }}>
                                             {/* Title */}
-                                            {selectedChatData.stepIndicator.value < 3 ?
+                                            {selectedChatData?.stepIndicator.value < 3 ?
                                                 <Text style={{ fontWeight: 700, fontSize: 25 * widthScaleFactor }}>{`PROFORMA INVOICE`}</Text> :
                                                 <Text style={{ fontWeight: 700, fontSize: 25 * widthScaleFactor }}>{`INVOICE`}</Text>
                                             }
@@ -1557,7 +1557,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
                                         <View style={{ position: 'absolute', right: 38 * widthScaleFactor, top: 38 * heightScaleFactor }}>
                                             {/* QR CODE */}
-                                            {selectedChatData.stepIndicator.value < 3 ?
+                                            {selectedChatData?.stepIndicator.value < 3 ?
                                                 null :
                                                 <View
                                                     ref={qrCodeRef}
@@ -1575,13 +1575,13 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
                                         <View style={{ position: 'absolute', right: 121 * widthScaleFactor, top: 34 * heightScaleFactor }}>
                                             {/* Invoice Number */}
-                                            {selectedChatData.stepIndicator.value < 3 ?
+                                            {selectedChatData?.stepIndicator.value < 3 ?
                                                 null :
-                                                <Text style={{ fontWeight: 750, fontSize: 14 * widthScaleFactor }}>{`Invoice No. RMJ-${selectedChatData.invoiceNumber}`}</Text>
+                                                <Text style={{ fontWeight: 750, fontSize: 14 * widthScaleFactor }}>{`Invoice No. RMJ-${selectedChatData?.invoiceNumber}`}</Text>
                                             }
                                         </View>
 
-                                        {selectedChatData.stepIndicator.value < 3 ?
+                                        {selectedChatData?.stepIndicator.value < 3 ?
                                             <View style={{ position: 'absolute', right: 38 * widthScaleFactor, top: 34 * heightScaleFactor, }}>
                                                 {/* Issuing Date */}
                                                 <View style={{ flexDirection: 'row', alignSelf: 'flex-end', }}>
@@ -1700,7 +1700,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
 
 
                                         </View>
-                                        {selectedChatData.stepIndicator.value < 3 ?
+                                        {selectedChatData?.stepIndicator.value < 3 ?
 
                                             <View style={{ position: 'absolute', right: 38 * widthScaleFactor, top: 130 * heightScaleFactor, borderWidth: 3, width: 430 * widthScaleFactor, borderColor: '#FF5C00', height: 194 * heightScaleFactor, }}>
                                                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', }}>
@@ -2132,7 +2132,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                     paddingVertical: 2 * heightScaleFactor,
 
                                                 }}>
-                                                    {invoiceData?.carData && invoiceData?.carData.carName ? (
+                                                    {invoiceData?.carData && invoiceData?.carData?.carName ? (
                                                         <Text style={{
                                                             fontWeight: 400,
                                                             fontSize: 12 * widthScaleFactor,
@@ -2149,7 +2149,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${invoiceData?.carData.carName}\n`}
+                                                                {`${invoiceData?.carData?.carName}\n`}
                                                             </Text>
                                                             <Text style={{
                                                                 fontWeight: 400,
@@ -2158,7 +2158,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${invoiceData?.carData.chassisNumber}\n`}
+                                                                {`${invoiceData?.carData?.chassisNumber}\n`}
                                                             </Text>
                                                             <Text style={{
                                                                 fontWeight: 400,
@@ -2167,7 +2167,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${invoiceData?.carData.exteriorColor}\n`}
+                                                                {`${invoiceData?.carData?.exteriorColor}\n`}
                                                             </Text>
                                                             <Text style={{
                                                                 fontWeight: 400,
@@ -2176,7 +2176,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${Number(invoiceData?.carData.engineDisplacement).toLocaleString('en-US')} cc\n`}
+                                                                {`${Number(invoiceData?.carData?.engineDisplacement).toLocaleString('en-US')} cc\n`}
                                                             </Text>
                                                             <Text style={{
                                                                 fontWeight: 400,
@@ -2185,7 +2185,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${Number(invoiceData?.carData.mileage).toLocaleString('en-US')} km\n`}
+                                                                {`${Number(invoiceData?.carData?.mileage).toLocaleString('en-US')} km\n`}
                                                             </Text>
                                                             <Text style={{
                                                                 fontWeight: 400,
@@ -2194,7 +2194,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${invoiceData?.carData.fuel}\n`}
+                                                                {`${invoiceData?.carData?.fuel}\n`}
                                                             </Text>
                                                             <Text style={{
                                                                 fontWeight: 400,
@@ -2203,7 +2203,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                                 marginBottom: 3 * heightScaleFactor,
                                                                 alignSelf: 'center',
                                                             }}>
-                                                                {`${invoiceData?.carData.transmission}\n`}
+                                                                {`${invoiceData?.carData?.transmission}\n`}
                                                             </Text>
                                                         </Text>
 
@@ -2243,7 +2243,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                                     flexDirection: 'row',
                                                     justifyContent: 'center',
                                                 }}>
-                                                    {invoiceData?.carData && invoiceData?.carData.carName ? (
+                                                    {invoiceData?.carData && invoiceData?.carData?.carName ? (
                                                         <Text style={{
                                                             fontWeight: 400,
                                                             fontSize: 12 * widthScaleFactor,
@@ -2408,7 +2408,7 @@ const PreviewInvoice = ({ messageText, activeChatId, selectedChatData, invoiceDa
                                             </Text>
                                         </View>
 
-                                        {selectedChatData.stepIndicator.value < 3 ? null :
+                                        {selectedChatData?.stepIndicator.value < 3 ? null :
                                             <View style={{ position: 'absolute', right: 39 * widthScaleFactor, top: 835 * heightScaleFactor, width: 300 * widthScaleFactor, }}>
                                                 <View style={{
                                                     width: 300 * widthScaleFactor,

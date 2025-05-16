@@ -9,6 +9,7 @@ import { doc, query, collection, where, orderBy, limit, onSnapshot, startAfter, 
 import { firestore } from "../../../../firebase/clientApp"
 import { loadMoreMessages, getBookingData } from "@/app/actions/actions"
 import { SortProvider } from "@/app/stock/stockComponents/sortContext"
+import ClientAppCheck from "../../../../firebase/ClientAppCheck"
 
 let lastVisible = null;
 export function subscribeToChatList(
@@ -228,7 +229,7 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
     // Check if we're on mobile view
     useEffect(() => {
         const checkMobileView = () => {
-            setIsMobileView(window.innerWidth < 1024)
+            setIsMobileView(window.innerWidth <= 768)
         }
 
         checkMobileView()
@@ -311,10 +312,11 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
         } catch (error) {
             console.error("Error loading more messages:", error)
         }
-    }
+    };
+    const [isLoadingChat, setIsLoadingChat] = useState(false)
     useEffect(() => {
         if (!userEmail) return
-
+        setIsLoadingChat(true)
         const trimmedQuery = searchQuery.trim()
 
         // If there's no search query, use default subscription
@@ -334,8 +336,9 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
             setChatList(newChatList)
             setHasMore(newChatList.length === 12)
         })
+        setIsLoadingChat(false)
+        return () => unsubscribe();
 
-        return () => unsubscribe()
     }, [userEmail, searchQuery])
 
 
@@ -395,14 +398,24 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
             if (cleanup) cleanup();
         };
     }, [chatList])
+    // e.g. "/chats" or "/chats/123"
+    // detail view whenever we're on /chats/<something>
+    const isDetail = pathname.startsWith('/chats/') && pathname.split('/').length > 2
 
     return (
         <SortProvider>
-      
+         
             <div className="flex h-screen bg-gray-50">
-   
+
+                {/* LIST PANE */}
                 <aside
-                    className={`${isMobileView && isDetailView ? "hidden" : "w-full"} lg:max-w-[350px] border-r border-gray-200 overflow-y-auto`}
+                    className={`
+            ${!isDetail ? 'block' : 'hidden'}
+            md:block
+            w-full md:w-[350px]
+            border-r border-gray-200
+            overflow-y-auto
+          `}
                 >
                     <TransactionList
                         searchQuery={searchQuery}
@@ -423,15 +436,22 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
                     />
                 </aside>
 
-                <main className={`${isMobileView && !isDetailView ? "hidden" : "w-full"} h-full overflow-y-auto`}>
-
-
-                    {!loadMain ? (
+                {/* DETAIL PANE */}
+                <main
+                    className={`
+            ${isDetail ? 'block' : 'hidden'}
+            md:block
+            flex-1
+            h-full
+            overflow-y-auto
+          `}
+                >
+                    {isDetail ? (
                         <TransactionCSR
                             vehicleStatus={vehicleStatus}
                             accountData={accountData}
-                            isMobileView={isMobileView}
-                            isDetailView={isDetailView}
+                            isMobileView={true}
+                            isDetailView={isDetail}
                             handleBackToList={handleBackToList}
                             bookingData={bookingData}
                             countryList={countryList}
@@ -447,24 +467,30 @@ export default function ChatPageCSR({ accountData, userEmail, currency, fetchInv
                             onSendMessage={sendMessage}
                             isLoading={isLoading}
                         />
+                    ) : chatList.length > 0 ? (
+                        <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                            <h3 className="text-xl font-medium text-gray-600">
+                                Select a transaction
+                            </h3>
+                        </div>
                     ) : (
-                        chatList.length > 0 ?
-                            <div className="flex flex-col items-center justify-center h-full text-center p-8">
-                                <div className="text-gray-400 mb-4">
-                                    <h3 className="text-xl font-medium mt-4">Select a transaction</h3>
-                                </div>
-                            </div> :
-                            <div className="flex flex-col items-center justify-center h-full text-center p-8">
-                                <div className="text-gray-400 mb-4">
-                                    <h3 className="text-xl font-medium mt-4">No orders yet</h3>
-                                    <p className="mt-2 text-gray-500">Browse our car stock and add vehicles to your order list.</p>
-                                </div>
-                                <Link href={'/stock'} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-                                    Browse Car Stock
-                                </Link>
-                            </div>
+                        <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                            <h3 className="text-xl font-medium text-gray-600">
+                                No orders yet
+                            </h3>
+                            <p className="mt-2 text-gray-500">
+                                Browse our car stock and add vehicles to your order list.
+                            </p>
+                            <Link
+                                href="/stock"
+                                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                            >
+                                Browse Car Stock
+                            </Link>
+                        </div>
                     )}
                 </main>
+
             </div>
         </SortProvider>
     )

@@ -226,6 +226,8 @@ export default function CarSearch({
         placeholder: "Min Mileage",
         options: [
           { value: "none", label: "Min Mileage" },
+          { value: "10000", label: "10,000 km" },
+          { value: "30000", label: "30,000 km" },
           { value: "50000", label: "50,000 km" },
           { value: "100000", label: "100,000 km" },
           { value: "150000", label: "150,000 km" },
@@ -260,9 +262,11 @@ export default function CarSearch({
         placeholder: "Max Mileage",
         options: [
           { value: "none", label: "Max Mileage" },
+          { value: "50000", label: "50,000 km" },
+          { value: "100000", label: "100,000 km" },
+          { value: "150000", label: "150,000 km" },
           { value: "200000", label: "200,000 km" },
           { value: "250000", label: "250,000 km" },
-          { value: "300000", label: "300,000 km" },
         ],
       },
     ],
@@ -494,7 +498,7 @@ export default function CarSearch({
     let updatedValues = { ...dropdownValues, [key]: "none" };
 
     // If removing make, also clear the model
-  
+
     if (key === "Select Make") {
       updatedValues = { ...updatedValues, "Select Make": "none", "Select Model": "none" };
     }

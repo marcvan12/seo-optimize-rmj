@@ -1,8 +1,7 @@
-"use client"
+'use client'
 import { firestore } from "../../../../firebase/clientApp"
-import { doc, query, collection, where, orderBy, limit, onSnapshot, startAfter, getDocs, updateDoc } from "firebase/firestore"
+import { query, collection, where, orderBy, limit, onSnapshot } from "firebase/firestore"
 import { useState, useEffect } from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import OrderCard from "./oderCard"
 import Sidebar from "./sidebar"
 import { SideMenu } from "./sideMenu";
@@ -133,7 +132,7 @@ export default function MainOrderPage({ count, userEmail, currency, accountData 
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
-   
+
       {/* Sidebar */}
       <Sidebar count={count} accountData={accountData} />
 
@@ -144,23 +143,6 @@ export default function MainOrderPage({ count, userEmail, currency, accountData 
           <h1 className="text-2xl font-bold text-white">My Orders</h1>
         </header>
 
-        {/* Sort controls */}
-        {/* <div className="p-4 border-b flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Sort by</span>
-            <Select defaultValue="new">
-              <SelectTrigger className="w-[180px] h-8 text-sm border-none shadow-none pl-0">
-                <SelectValue placeholder="Sort order" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="new">Message New to Old</SelectItem>
-                <SelectItem value="old">Message Old to New</SelectItem>
-                <SelectItem value="price-high">Price High to Low</SelectItem>
-                <SelectItem value="price-low">Price Low to High</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div> */}
 
         {/* Order list */}
         <div className="flex-1 p-4 space-y-4 bg-gray-50 overflow-y-auto">
