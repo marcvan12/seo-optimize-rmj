@@ -295,35 +295,35 @@ export default async function Home() {
         <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
       </div>
 
-      <ClientWrapper id="by-makers">
-        <div id="by-makers" className="relative z-25">
-          <SearchByMakers brand={brand} makeCounts={makeCounts} />
-        </div>
-      </ClientWrapper>
 
-      <ClientWrapper id="by-types">
-        <div id="by-types" className="relative z-40">
-          <SearchByType />
-        </div>
-      </ClientWrapper>
+      <div id="by-makers" className="relative z-25">
+        <SearchByMakers brand={brand} makeCounts={makeCounts} />
+      </div>
 
-      <ClientWrapper id="new-arrivals">
-        <div id="new-arrivals" className="relative z-50">
-          <NewArrivals newVehicles={newVehicles} currency={currency} />
-        </div>
-      </ClientWrapper>
 
-      <ClientWrapper id="how-to-buy">
-        <div id="how-to-buy" className="relative z-60">
-          <HowToBuySection />
-        </div>
-      </ClientWrapper>
 
-      <ClientWrapper id="world-map">
-        <div id="world-map" className="relative z-70 p-4">
-          <WorldMapSection />
-        </div>
-      </ClientWrapper>
+      <div id="by-types" className="relative z-40">
+        <SearchByType />
+      </div>
+
+
+
+      <div id="new-arrivals" className="relative z-50">
+        <NewArrivals newVehicles={newVehicles} currency={currency} />
+      </div>
+
+
+
+      <div id="how-to-buy" className="relative z-60">
+        <HowToBuySection />
+      </div>
+
+
+
+      <div id="world-map" className="relative z-70 p-4">
+        <WorldMapSection />
+      </div>
+
     </div>
   );
 }

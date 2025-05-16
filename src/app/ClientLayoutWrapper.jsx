@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ClientWrapper from "./homeComponents/ClientWrapper";
 export default function ClientLayoutWrapper({ children, currency, userEmail }) {
 
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export default function ClientLayoutWrapper({ children, currency, userEmail }) {
   return (
 
     <div className="flex flex-col overflow-x-clip">
-   
+
 
       {!hideHeaderFooter && <Header currency={currency} userEmail={userEmail} />}
 
@@ -19,6 +20,7 @@ export default function ClientLayoutWrapper({ children, currency, userEmail }) {
       {children}
 
       {!hideHeaderFooter && !hideFooterRoutes.includes(pathname) && <Footer />}
+
     </div>
 
   );

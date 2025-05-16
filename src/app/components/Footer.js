@@ -22,7 +22,7 @@ export default function Footer() {
               height={200}         // replace with the actual height of your GIF
               className="h-15 w-auto m-auto"
               fetchPriority="high" // same intent as your original `<img>`
-              priority              // tells Next.js to preload this image
+                  // tells Next.js to preload this image
             // keep `false` to run it through the Next.js optimizer
             />
             <address className="mt-4 not-italic text-sm text-gray-600">
