@@ -14,7 +14,7 @@ export default function HeroBanner({ unsoldVehicleCount }) {
         {/* Count + Label stacked */}
         <div className="flex flex-col leading-tight">
           <h1 className="text-white font-bold text-[2rem] md:text-[4rem] tracking-wide text-shadow-custom">
-            {unsoldVehicleCount}
+            {unsoldVehicleCount.toLocaleString()}
           </h1>
           <h2 className="text-[1rem] md:text-[1.5rem] text-shadow-custom text-white">Units Available</h2>
         </div>

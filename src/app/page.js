@@ -14,7 +14,7 @@ export async function generateMetadata() {
 
   const unsoldVehicleCount = await getUnsoldVehicleCount();
   return {
-    title: `HOME | REAL MOTOR JAPAN - Quality Cars for Export (${unsoldVehicleCount} unsold vehicles)`,
+    title: `HOME | REAL MOTOR JAPAN - Quality Cars for Export (${unsoldVehicleCount.toLocaleString()} units available)`,
     description:
       "Established in 1979, offering affordable and quality used vehicles sourced in Japan.",
     openGraph: {
