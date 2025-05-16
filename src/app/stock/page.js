@@ -13,6 +13,7 @@ import {
 } from "../../../services/fetchFirebaseData";
 import { isFavorited } from "../actions/actions";
 import { SortProvider } from "./stockComponents/sortContext";
+import { ZambiaModalClient } from "../components/ZambiaModalClient";
 
 // In-memory cursor map (Note: not SSR-safe, use in client or persist elsewhere)
 export async function generateMetadata({ params, searchParams }) {
@@ -188,7 +189,9 @@ const CarStock = async ({ params, searchParams }) => {
               userEmail={null}
             />
           </SearchHeader>
+
         </div>
+        <ZambiaModalClient />
       </SortProvider>
     );
   }
@@ -244,6 +247,7 @@ const CarStock = async ({ params, searchParams }) => {
           />
         </SearchHeader>
       </div>
+      <ZambiaModalClient />
     </SortProvider>
   );
 };

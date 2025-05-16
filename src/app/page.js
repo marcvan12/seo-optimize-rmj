@@ -7,7 +7,6 @@ import SearchByMakers from './homeComponents/SearchbyMakers';
 import SearchByType from './homeComponents/SearchByType';
 import SearchQuery from './homeComponents/SearchQuery';
 import { getMakeCounts } from './actions/actions';
-import { ZambiaModalClient } from './components/ZambiaModalClient';
 import { fetchCarMakes, fetchNewVehicle, fetchCarBodytype, getUnsoldVehicleCount, fetchCurrency } from '../../services/fetchFirebaseData';
 // generateMetadata is only for SEO metadata
 export async function generateMetadata() {
@@ -323,7 +322,7 @@ export default async function Home() {
       <div id="world-map" className="relative z-70 p-4">
         <WorldMapSection />
       </div>
-      <ZambiaModalClient />
+ 
     </div>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
-
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next/client';
-import { X } from 'lucide-react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ import {
 
 export function ZambiaModal() {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
 
     useEffect(() => {
         const seen = getCookie('zambia-modal-seen');
@@ -31,7 +32,7 @@ export function ZambiaModal() {
             // Set cookie to expire in 2 weeks
             setCookie('zambia-modal-seen', 'true', {
                 maxAge: 14 * 24 * 60 * 60,
-                path: '/',
+                path: pathname,
             });
         }
     };
@@ -48,7 +49,7 @@ export function ZambiaModal() {
                 </DialogHeader>
 
                 {/* Custom close button (optional) */}
-          
+
 
                 <div className="relative h-[370px] w-full overflow-hidden rounded-md">
                     <Image
@@ -64,10 +65,14 @@ export function ZambiaModal() {
                     We are excited to announce that we have established our Zambia branch,
                     expanding our reach and strengthening our presence in the region.
                 </DialogDescription>
-
                 <div className="flex justify-center gap-4 mt-4">
                     <Button asChild className="w-full bg-[#0000ff] py-4 hover:bg-blue-700">
-                        <Link href="/localinformation/Zambia">Learn More</Link>
+                        <Link
+                            href="/localinformation/Zambia"
+                            aria-label="Learn more about our Zambia branch"
+                        >
+                            Learn more about our Zambia branch
+                        </Link>
                     </Button>
                 </div>
             </DialogContent>

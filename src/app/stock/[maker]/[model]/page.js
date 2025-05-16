@@ -12,6 +12,7 @@ import {
 } from "../../../../../services/fetchFirebaseData";
 import { isFavorited } from "../../../actions/actions";
 import { SortProvider } from "../../stockComponents/sortContext";
+import { ZambiaModalClient } from "@/app/components/ZambiaModalClient";
 // Simulated company data fetch
 export async function generateMetadata({ params, searchParams }) {
   // 1) fetch your look-ups in parallel
@@ -175,7 +176,7 @@ const CarStock = async ({ params, searchParams }) => {
         <div className="z-10 mt-20">
           <div className="relative z-11">
             <CarSearch
-            carFiltersServer={carFilters}
+              carFiltersServer={carFilters}
               carMakes={carMakes}
               countryArray={countryArray}
               carBodytypes={carBodytypes}
@@ -209,6 +210,7 @@ const CarStock = async ({ params, searchParams }) => {
             />
           </SearchHeader>
         </div>
+        <ZambiaModalClient />
       </SortProvider>
     );
   }
@@ -263,6 +265,7 @@ const CarStock = async ({ params, searchParams }) => {
           />
         </SearchHeader>
       </div>
+      <ZambiaModalClient />
     </SortProvider>
   );
 };
