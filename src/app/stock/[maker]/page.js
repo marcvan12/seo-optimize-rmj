@@ -81,7 +81,7 @@ export async function generateMetadata({ params, searchParams }) {
 
   // 7) build your metadata
   const title = maker
-    ? `${maker} Stock (${totalCount ?? 0}) | REAL MOTOR JAPAN`
+    ? `${maker} Stock (${totalCount.toLocaleString() ?? 0} units) | REAL MOTOR JAPAN`
     : `REAL MOTOR JAPAN - Car Stock`;
 
   const description = maker
@@ -234,7 +234,7 @@ const CarStock = async ({ params, searchParams }) => {
       <div className="z-10 mt-20">
         <div className="relative z-11">
           <CarSearch
-                carFiltersServer={carFilters}
+            carFiltersServer={carFilters}
             carMakes={carMakes}
             countryArray={countryArray}
             carBodytypes={carBodytypes}

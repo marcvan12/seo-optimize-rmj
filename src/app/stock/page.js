@@ -83,7 +83,7 @@ export async function generateMetadata({ params, searchParams }) {
 
 
   // 7) build your metadata
-  const title = `Car Stock (${totalCount ?? 0}) | REAL MOTOR JAPAN`
+  const title = `Car Stock (${totalCount.toLocaleString() ?? 0} units) | REAL MOTOR JAPAN`
 
 
   const description = `Browse our stock. Used Japanese Cars`

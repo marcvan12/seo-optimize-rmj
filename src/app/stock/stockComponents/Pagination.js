@@ -142,7 +142,7 @@ export default function SearchHeader({
         <div className="mx-auto flex max-w-7xl flex-col gap-3">
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-bold">{totalCount}</span>
+              <span className="text-2xl font-bold">{totalCount.toLocaleString()}</span>
               <span className="text-sm text-gray-600">units found</span>
             </div>
             <PaginationButtons />
