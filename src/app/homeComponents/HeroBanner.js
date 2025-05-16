@@ -25,7 +25,7 @@ export default function HeroBanner({ unsoldVehicleCount }) {
           alt="Hero banner"
           fill
           sizes="(max-width: 720px) 720px, 100vw"
-          quality={75}
+          quality={85}
           style={{ objectFit: 'cover' }}
           priority
           fetchPriority="high"
