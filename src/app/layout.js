@@ -37,7 +37,12 @@ export default async function RootLayout({ children, params }) {
     // no session → render guest UI
     return (
       <html lang="en">
-
+        <link
+          rel="preload"
+          href="https://real-motor-japan.firebaseapp.com/__/auth/iframe.js"
+          as="script"
+          crossOrigin="anonymous"
+        />
         <Gtag />
         <link
           rel="preload"
@@ -46,7 +51,7 @@ export default async function RootLayout({ children, params }) {
           media="(max-width: 640px)"
         />
         <body>
-   
+
           <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-NJLD22H"
@@ -95,6 +100,12 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang="en">
+      <link
+        rel="preload"
+        href="https://real-motor-japan.firebaseapp.com/__/auth/iframe.js"
+        as="script"
+        crossOrigin="anonymous"
+      />
       <Gtag />
       <link
         rel="preload"
